@@ -27,6 +27,8 @@
 
  
 
+  <div class="hint" id="hint">Chạm màn hình để bật tiếng & toàn màn hình…</div>
+
   <script>
     const hint = document.getElementById('hint');
     const yt = document.getElementById('yt');
@@ -34,7 +36,8 @@
     async function goFullscreen(){
       // Bật tiếng khi tương tác
       if(yt && yt.contentWindow) {
-        yt.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+        yt.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
+        yt.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
       }
 
       try{
@@ -46,9 +49,9 @@
     // Thử tự fullscreen
     setTimeout(goFullscreen, 400);
 
-    // Nếu thiết bị chặn auto-fullscreen, cho phép chạm 1 lần để bật
-    document.addEventListener('click', goFullscreen, { once:true });
-    document.addEventListener('touchstart', goFullscreen, { once:true });
+    // Cho phép chạm để bật tiếng và fullscreen
+    document.addEventListener('click', goFullscreen);
+    document.addEventListener('touchstart', goFullscreen);
   </script>
 </body>
 </html>
