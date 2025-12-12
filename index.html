@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Standee LED</title>
+  <style>
+    html,body{margin:0;height:100%;background:#000;overflow:hidden}
+    #wrap{position:fixed;inset:0}
+    iframe{width:100%;height:100%;border:0}
+    .hint{
+      position:fixed;left:0;right:0;bottom:0;
+      padding:10px 12px;color:#fff;font:14px/1.4 Arial;
+      background:linear-gradient(transparent,rgba(0,0,0,.75));
+      opacity:.9
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <iframe
+      id="yt"
+      src="https://www.youtube.com/embed/videoseries?list=PL0OJPRXxRaXHUVAHrwmqKP_6Z8Lk0vNEr&autoplay=1&mute=1&loop=1&playlist=PL0OJPRXxRaXHUVAHrwmqKP_6Z8Lk0vNEr&controls=0&rel=0&modestbranding=1"
+      allow="autoplay; fullscreen"
+      allowfullscreen></iframe>
+  </div>
+
+  <div class="hint" id="hint">Chạm 1 lần nếu chưa tự toàn màn hình…</div>
+
+  <script>
+    const hint = document.getElementById('hint');
+
+    async function goFullscreen(){
+      try{
+        await document.documentElement.requestFullscreen();
+        hint.style.display = 'none';
+      }catch(e){}
+    }
+
+    // Thử tự fullscreen
+    setTimeout(goFullscreen, 400);
+
+    // Nếu thiết bị chặn auto-fullscreen, cho phép chạm 1 lần để bật
+    document.addEventListener('click', goFullscreen, { once:true });
+    document.addEventListener('touchstart', goFullscreen, { once:true });
+  </script>
+</body>
+</html>
